@@ -1,4 +1,5 @@
 import { CheckSumUtil } from "@/utils";
+import { sortAccounts } from "@/utils/sortNestedCode";
 import { create } from "zustand";
 
 export interface AccountModel {
@@ -21,13 +22,16 @@ const accountStore = create<AccountStore>((set) => ({
   checkSums: "",
   accounts: [],
   init: (accounts: AccountModel[]) => {
-    set(() => ({ accounts, checkSums: CheckSumUtil.create(accounts) }));
+    set(() => ({
+      accounts: sortAccounts(accounts),
+      checkSums: CheckSumUtil.create(accounts),
+    }));
   },
 
   addAccount: (account: AccountModel) => {
     const accounts = [...accountStore.getState().accounts, account];
     set((state) => ({
-      accounts,
+      accounts: sortAccounts(accounts),
       checkSums: CheckSumUtil.create(accounts),
       isSynchronisable: true,
     }));

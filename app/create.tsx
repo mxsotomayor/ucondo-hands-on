@@ -1,10 +1,11 @@
 import AccountBSSelector from "@/components/AccountBSSelector";
+import CodeInput from "@/components/CodeInput";
 import ScreenBody from "@/components/ScreenBody";
-import { AccountModel } from "@/data/stores/accountStore";
+import accountStore, { AccountModel } from "@/data/stores/accountStore";
 import AntDesign from "@expo/vector-icons/AntDesign";
 
 import BottomSheet from "@gorhom/bottom-sheet";
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Switch,
@@ -17,6 +18,10 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { SafeAreaView } from "react-native-safe-area-context";
 
 function CreateScreen() {
+  const { accounts } = accountStore();
+
+  const [code, setCode] = useState<string>("");
+
   const [account, setAccount] = React.useState<AccountModel | null>(null);
 
   const [isEnabled, setIsEnabled] = React.useState(false);
@@ -26,6 +31,15 @@ function CreateScreen() {
 
   const handleSelectAccount = (account: AccountModel) => {
     accountSelectRef.current?.close();
+    const lastChild = accounts.findLast((item) =>
+      item.code.startsWith(`${account.code}.`)
+    );
+    if (lastChild) {
+      const codeparts = lastChild.code.split(".").map((i) => parseInt(i));
+      const codeProposal = codeparts[codeparts.length - 1] + 1;
+      setCode(codeProposal.toString());
+    }
+    console.log("last child", lastChild);
     setAccount(account);
   };
 
@@ -41,6 +55,22 @@ function CreateScreen() {
                 rowGap: 16,
               }}
             >
+              <View
+                style={{
+                  height: 44,
+                  justifyContent: "flex-end",
+                  paddingBottom: 4,
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 20,
+                    fontWeight: 500,
+                  }}
+                >
+                  Dados da conta
+                </Text>
+              </View>
               {/* Top Level Selected Account */}
               <View
                 style={{
@@ -71,10 +101,17 @@ function CreateScreen() {
               {/* Proposal code */}
               <View style={styles.fromInputGrid}>
                 <Text style={styles.formLabel}>Código</Text>
+                <CodeInput
+                  prefix={account?.code ?? ""}
+                  code={code}
+                  disabled={account === null}
+                  onChange={setCode}
+                />
+              </View>
+              {/* Proposal code */}
+              <View style={styles.fromInputGrid}>
+                <Text style={styles.formLabel}>Nome</Text>
                 <TextInput
-                  keyboardType="decimal-pad"
-                  readOnly={account === null}
-                  value={account ? account.code : ""}
                   style={{
                     height: 44,
                     borderRadius: 10,
@@ -83,15 +120,27 @@ function CreateScreen() {
                   }}
                 />
               </View>
+              {/* Proposal code */}
               <View style={styles.fromInputGrid}>
                 <Text style={styles.formLabel}>Tipo</Text>
-                <Text>{account?.type}</Text>
+                <TextInput
+                  readOnly
+                  value={account ? account.type : ""}
+                  style={{
+                    height: 44,
+                    borderRadius: 10,
+                    paddingHorizontal: 8,
+                    backgroundColor: account?.code ? "#e1daec" : "#d4cde1",
+                  }}
+                />
               </View>
-              <View style={{
-                flexDirection:"row",
-                alignItems:"center",
-                justifyContent:"space-between"
-              }}>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                }}
+              >
                 <Text style={styles.formLabel}>Aceita Lançamentos</Text>
                 <Switch
                   trackColor={{ false: "#cdcdcd", true: "#d78cfd" }}
@@ -106,6 +155,7 @@ function CreateScreen() {
         </View>
 
         <AccountBSSelector
+          accounts={accounts}
           onSelect={handleSelectAccount}
           initialState={-1}
           bottomSheetRef={accountSelectRef}

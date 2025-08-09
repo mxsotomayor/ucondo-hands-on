@@ -6,7 +6,7 @@ import React from "react";
 import { TouchableOpacity, View } from "react-native";
 
 export default function RootLayout() {
-  const { isSynchronisable } = accountStore();
+  const { addAccount } = accountStore();
 
   return (
     <Stack>

@@ -1,63 +1,82 @@
-import accountStore, { AccountModel } from "@/data/stores/accountStore";
+import { AccountModel } from "@/data/stores/accountStore";
+import Feather from '@expo/vector-icons/Feather';
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
-import React, { useCallback } from "react";
+import React, { useCallback, useMemo } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 function AccountBSSelector({
   bottomSheetRef,
+  accounts,
   handleSheetChanges,
   initialState = -1,
   onSelect,
 }: {
   initialState: -1 | 0;
+  accounts: AccountModel[];
   onSelect: (account: AccountModel) => void;
   bottomSheetRef: React.Ref<BottomSheet>;
   handleSheetChanges?: () => void;
 }) {
-  const { accounts } = accountStore();
+
 
   const renderItem = useCallback(
     (item: AccountModel) => (
-      <View key={item.code}>
+      <View key={item.code} style={{
+        backgroundColor: item.allow_register === "Sim" ? "#f9f7fe":"#ede6fa",
+        paddingHorizontal: 8,
+        paddingVertical: 4,
+        marginVertical: 2,
+        borderRadius: 10
+      }}>
         <TouchableOpacity
+          disabled={item.allow_register === "Sim"}
           style={{
             height: 38,
-            justifyContent:"center",
+            justifyContent: "center",
           }}
-          onPress={() => onSelect(item)}
+          onPress={
+            item.allow_register === "Sim" ? undefined : () => onSelect(item)
+          }
         >
           <Text
             style={{
               fontSize: 16,
-              fontWeight: 500,
+              fontWeight: item.allow_register === "Sim" ? 400 : 600,
+              flexDirection:"row",
+              alignItems:"center",
+              opacity: item.allow_register === "Sim" ? 0.3 : 1,
             }}
           >
-            {item.code} - {item.account_name}
+           {
+           item.allow_register === "Sim" && <Feather name="lock" size={20} color="black" />
+           } {item.code} - {item.account_name}
           </Text>
         </TouchableOpacity>
       </View>
     ),
-    []
+    [onSelect]
   );
+
+  const data = useMemo(()=>accounts.filter((accounts)=>accounts.allow_register !== "Sim"),[accounts])
 
   return (
     <BottomSheet
       ref={bottomSheetRef}
       onChange={handleSheetChanges}
       index={initialState}
-      snapPoints={["70%", "100%"]}
+      snapPoints={["100%"]}
       enablePanDownToClose
     >
       <View
         style={{
           paddingHorizontal: 16,
-          height: 34,
+          height: 36,
           justifyContent: "center",
         }}
       >
         <Text
           style={{
-            fontSize: 16,
+            fontSize: 18,
             fontWeight: 600,
           }}
         >
@@ -65,7 +84,7 @@ function AccountBSSelector({
         </Text>
       </View>
       <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
-        {accounts.map(renderItem)}
+        {data.map(renderItem)}
       </BottomSheetScrollView>
     </BottomSheet>
   );
@@ -87,4 +106,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AccountBSSelector;
+export default React.memo(AccountBSSelector);
