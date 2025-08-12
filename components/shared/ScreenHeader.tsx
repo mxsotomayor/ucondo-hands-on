@@ -21,6 +21,7 @@ function ScreenHeader({ title, actions }: ScreenHeaderProps) {
       >
         {title}
       </Text>
+      <Text>fixed</Text>
       {actions}
     </View>
   );

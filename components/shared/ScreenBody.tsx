@@ -11,14 +11,14 @@ function ScreenBody({ children }: ScreenBodyProps) {
 
 export default ScreenBody;
 
-
 const styles = StyleSheet.create({
   scrollViewStyle: {
+    height: 100,
     backgroundColor: "#f0edf5",
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     flex: 1,
     rowGap: 6,
-    overflow:"hidden"
+    overflow: "hidden",
   },
 });

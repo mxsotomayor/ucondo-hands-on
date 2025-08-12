@@ -1,4 +1,4 @@
-import { AccountModel } from "@/data/stores/accountStore";
+import { AccountModel } from '@/models';
 import Feather from '@expo/vector-icons/Feather';
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import React, { useCallback, useMemo } from "react";
@@ -22,34 +22,34 @@ function AccountBSSelector({
   const renderItem = useCallback(
     (item: AccountModel) => (
       <View key={item.code} style={{
-        backgroundColor: item.allow_register === "Sim" ? "#f9f7fe":"#ede6fa",
+        backgroundColor: item.releasable === "Sim" ? "#f9f7fe":"#ede6fa",
         paddingHorizontal: 8,
         paddingVertical: 4,
         marginVertical: 2,
         borderRadius: 10
       }}>
         <TouchableOpacity
-          disabled={item.allow_register === "Sim"}
+          disabled={item.releasable === "Sim"}
           style={{
             height: 38,
             justifyContent: "center",
           }}
           onPress={
-            item.allow_register === "Sim" ? undefined : () => onSelect(item)
+            item.releasable === "Sim" ? undefined : () => onSelect(item)
           }
         >
           <Text
             style={{
               fontSize: 16,
-              fontWeight: item.allow_register === "Sim" ? 400 : 600,
+              fontWeight: item.releasable === "Sim" ? 400 : 600,
               flexDirection:"row",
               alignItems:"center",
-              opacity: item.allow_register === "Sim" ? 0.3 : 1,
+              opacity: item.releasable === "Sim" ? 0.3 : 1,
             }}
           >
            {
-           item.allow_register === "Sim" && <Feather name="lock" size={20} color="black" />
-           } {item.code} - {item.account_name}
+           item.releasable === "Sim" && <Feather name="lock" size={20} color="black" />
+           } {item.code} - {item.name}
           </Text>
         </TouchableOpacity>
       </View>
@@ -57,7 +57,7 @@ function AccountBSSelector({
     [onSelect]
   );
 
-  const data = useMemo(()=>accounts.filter((accounts)=>accounts.allow_register !== "Sim"),[accounts])
+  const data = useMemo(()=>accounts.filter((accounts)=>accounts.releasable !== "Sim"),[accounts])
 
   return (
     <BottomSheet

@@ -1,4 +1,4 @@
-import { AccountModel } from "@/data/stores/accountStore";
+import { AccountModel } from "@/models";
 
 export const sortAccounts = (accounts: AccountModel[]) => {
   return accounts.sort((a, b) => {
