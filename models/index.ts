@@ -1,1 +1,2 @@
-export * from './accountModel'
+export * from './AccountModel';
+export * from './SyncOpsModel';
