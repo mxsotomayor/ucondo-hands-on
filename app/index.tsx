@@ -19,6 +19,7 @@ export default function Index() {
         <View
           style={{
             paddingVertical: 16,
+            paddingHorizontal: 16
           }}
         >
           <SearchInput
@@ -41,7 +42,6 @@ export default function Index() {
 
 const styles = StyleSheet.create({
   mainView: {
-    paddingHorizontal: 8,
     backgroundColor: lightTheme.colors.primary,
     height: "100%",
   },

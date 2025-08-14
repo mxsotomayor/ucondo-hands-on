@@ -5,7 +5,7 @@ export class StorageService {
   static async get(key: string): Promise<AccountModel[] | false> {
     // DEV_NOTE: uncomment for restarting
     // console.info("deleting all...")
-    // await AsyncStorage.removeItem("accounts");
+    await AsyncStorage.removeItem("accounts");
 
     const value = await AsyncStorage.getItem(key);
 

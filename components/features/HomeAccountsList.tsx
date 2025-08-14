@@ -1,3 +1,8 @@
+import { AccountModel } from "@/models";
+import { ACCOUNT_COLORS } from "@/shared/contants";
+import { useAccountStore } from "@/stores/accountStore";
+import { useHomeAccountFilterStore } from "@/stores/homeAccountFilterStore";
+import Feather from "@expo/vector-icons/Feather";
 import React, { useEffect, useState } from "react";
 import {
   ScrollView,
@@ -6,12 +11,8 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { AccountModel } from "@/models";
-import { ACCOUNT_COLORS } from "@/shared/contants";
-import { useAccountStore } from "@/stores/accountStore";
-import { useHomeAccountFilterStore } from "@/stores/homeAccountFilterStore";
-import Feather from "@expo/vector-icons/Feather";
-import ConfirmDialog from "../ui/ConfirmDialog";
+import DangerConfirmDialog from "../ui/DangerConfirmDialog";
+import AccountPreviewDialog from "../ui/AccountPreviewDialog";
 
 const accountMatcher = (account: AccountModel, filter: string): boolean => {
   return (
@@ -21,10 +22,10 @@ const accountMatcher = (account: AccountModel, filter: string): boolean => {
 };
 
 function HomeAccountsList() {
-
-  const [deletingAccount, setDeletingAccount] = useState<AccountModel | null>(
-    null
-  );
+  const [deletingAccount, setDeletingAccount] = useState<{
+    account: AccountModel;
+    operation: "preview" | "delete";
+  } | null>(null);
   const { init, isFetching, accounts, deleteAccount } = useAccountStore();
   const { filterText } = useHomeAccountFilterStore();
 
@@ -43,13 +44,23 @@ function HomeAccountsList() {
         flex: 1,
       }}
     >
-      <ConfirmDialog
-        visible={deletingAccount !== null}
+      <AccountPreviewDialog
+        account={
+          deletingAccount?.operation === "preview"
+            ? deletingAccount?.account
+            : null
+        }
+        onAccept={() => {
+          setDeletingAccount(null);
+        }}
+      />
+      <DangerConfirmDialog
+        visible={deletingAccount?.operation === "delete"}
         title="Deseja excluir a conta"
-        subTitle={`${deletingAccount?.code} - ${deletingAccount?.name} ?`}
+        subTitle={`${deletingAccount?.account.code} - ${deletingAccount?.account.name} ?`}
         onCancel={() => setDeletingAccount(null)}
         onAccept={() => {
-          deleteAccount(deletingAccount?.code ?? "");
+          deleteAccount(deletingAccount?.account.code ?? "");
           setDeletingAccount(null);
         }}
       />
@@ -98,7 +109,16 @@ function HomeAccountsList() {
         >
           {isFetching && <Text>A Carregar...</Text>}
           {accountsFiltered.map((account, index) => (
-            <View key={index} style={styles.accountsCard}>
+            <TouchableOpacity
+              key={index}
+              style={styles.accountsCard}
+              onPress={() =>
+                setDeletingAccount({
+                  account: account,
+                  operation: "preview",
+                })
+              }
+            >
               <View
                 style={{
                   flex: 1,
@@ -142,12 +162,17 @@ function HomeAccountsList() {
                     alignItems: "center",
                     justifyContent: "center",
                   }}
-                  onPress={() => setDeletingAccount(account)}
+                  onPress={() =>
+                    setDeletingAccount({
+                      operation: "delete",
+                      account: account,
+                    })
+                  }
                 >
                   <Feather name="trash" size={18} color="#999" />
                 </TouchableOpacity>
               </View>
-            </View>
+            </TouchableOpacity>
           ))}
         </ScrollView>
       </View>

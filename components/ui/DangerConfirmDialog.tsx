@@ -1,9 +1,9 @@
 import { Dialog } from "react-native-simple-dialogs";
 
-import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import Feather from "@expo/vector-icons/Feather";
 import { lightTheme } from "@/shared/theme";
+import Feather from "@expo/vector-icons/Feather";
+import React from "react";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 interface ConfirmDialogProps {
   visible: boolean;
@@ -12,7 +12,7 @@ interface ConfirmDialogProps {
   onCancel: () => void;
   onAccept: () => void;
 }
-function ConfirmDialog({
+function DangerConfirmDialog({
   visible,
   title,
   subTitle,
@@ -97,4 +97,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default ConfirmDialog;
+export default DangerConfirmDialog;

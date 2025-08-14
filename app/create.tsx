@@ -22,7 +22,6 @@ export default function CreateScreen() {
 
 const styles = StyleSheet.create({
   mainView: {
-    paddingHorizontal: 8,
     backgroundColor: lightTheme.colors.primary,
     height: "100%",
   },
