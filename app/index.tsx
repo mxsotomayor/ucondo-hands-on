@@ -6,6 +6,8 @@ import SearchInput from "@/components/ui/SearchInput";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useHomeAccountFilterStore } from "@/stores/homeAccountFilterStore";
 import { useDebouncer } from "@/utils";
+import { lightTheme } from "@/shared/theme";
+import Toast from "react-native-toast-message";
 
 export default function Index() {
   const { setFilterText } = useHomeAccountFilterStore();
@@ -13,7 +15,6 @@ export default function Index() {
 
   return (
     <SafeAreaView style={{}} edges={["left", "right", "bottom"]}>
-      
       <View style={styles.mainView}>
         <View
           style={{
@@ -33,6 +34,7 @@ export default function Index() {
           <HomeAccountsList />
         </ScreenBody>
       </View>
+      <Toast />
     </SafeAreaView>
   );
 }
@@ -40,7 +42,7 @@ export default function Index() {
 const styles = StyleSheet.create({
   mainView: {
     paddingHorizontal: 8,
-    backgroundColor: "purple",
+    backgroundColor: lightTheme.colors.primary,
     height: "100%",
   },
 });

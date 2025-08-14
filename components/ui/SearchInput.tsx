@@ -1,8 +1,9 @@
+import { lightTheme } from "@/shared/theme";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import React, { useState } from "react";
 import { StyleSheet, TextInput, View } from "react-native";
 
-function SearchInput({onChange}:{onChange?: (value:string)=> void}) {
+function SearchInput({ onChange }: { onChange?: (value: string) => void }) {
   const [focused, setFocused] = useState(false);
   return (
     <View
@@ -18,6 +19,7 @@ function SearchInput({onChange}:{onChange?: (value:string)=> void}) {
     >
       <AntDesign name="search1" size={24} color="black" />
       <TextInput
+        placeholderTextColor={"#bbb"}
         style={styles.inputText}
         placeholder="Pesquisar ..."
         onChangeText={(value) => onChange?.(value)}
@@ -42,6 +44,7 @@ const styles = StyleSheet.create({
   },
   inputText: {
     flex: 1,
+    color: lightTheme.colors.text,
   },
 });
 

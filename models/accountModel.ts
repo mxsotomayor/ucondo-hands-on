@@ -9,6 +9,7 @@ export interface AccountModel {
 
 export class AccountModelMapper {
   static fromJsonToList(data: unknown[]): AccountModel[] {
+    
     console.log("data to parse", data);
     return data.map?.((item) => item as AccountModel) ?? [];
   }

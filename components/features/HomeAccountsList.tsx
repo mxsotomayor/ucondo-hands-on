@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -6,12 +6,12 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-
+import { AccountModel } from "@/models";
 import { ACCOUNT_COLORS } from "@/shared/contants";
-import {useAccountStore} from "@/stores/accountStore";
+import { useAccountStore } from "@/stores/accountStore";
 import { useHomeAccountFilterStore } from "@/stores/homeAccountFilterStore";
 import Feather from "@expo/vector-icons/Feather";
-import { AccountModel } from "@/models";
+import ConfirmDialog from "../ui/ConfirmDialog";
 
 const accountMatcher = (account: AccountModel, filter: string): boolean => {
   return (
@@ -21,6 +21,10 @@ const accountMatcher = (account: AccountModel, filter: string): boolean => {
 };
 
 function HomeAccountsList() {
+
+  const [deletingAccount, setDeletingAccount] = useState<AccountModel | null>(
+    null
+  );
   const { init, isFetching, accounts, deleteAccount } = useAccountStore();
   const { filterText } = useHomeAccountFilterStore();
 
@@ -32,12 +36,24 @@ function HomeAccountsList() {
   useEffect(() => {
     init();
   }, [init]);
+
   return (
     <View
       style={{
         flex: 1,
       }}
     >
+      <ConfirmDialog
+        visible={deletingAccount !== null}
+        title="Deseja excluir a conta"
+        subTitle={`${deletingAccount?.code} - ${deletingAccount?.name} ?`}
+        onCancel={() => setDeletingAccount(null)}
+        onAccept={() => {
+          deleteAccount(deletingAccount?.code ?? "");
+          setDeletingAccount(null);
+        }}
+      />
+
       <View
         style={{
           flexDirection: "row",
@@ -126,7 +142,7 @@ function HomeAccountsList() {
                     alignItems: "center",
                     justifyContent: "center",
                   }}
-                  onPress={() => deleteAccount(account.code)}
+                  onPress={() => setDeletingAccount(account)}
                 >
                   <Feather name="trash" size={18} color="#999" />
                 </TouchableOpacity>

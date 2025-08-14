@@ -6,7 +6,6 @@ import { useShallow } from "zustand/react/shallow";
 type FormData = {
   name: string;
   code: string;
-  type?: AccountModelType;
   releasable?: boolean;
   rootAccount?: AccountModel;
 };
@@ -21,20 +20,24 @@ type FormState = {
   setErrors: (errors?: Partial<Errors>) => void;
   data?: Partial<FormData>;
   validate: () => boolean;
-  setFields: (fields?: Partial<FormData>) => void;
+  setFields: (fields: Partial<FormData>) => void;
+  clear: () => void;
   validateAndSave: () => Promise<{ success: boolean; errors?: string[] }>;
 };
 
 const newAccountStore = create<FormState>((set, get) => ({
   data: { name: "", code: "" },
+  clear() {
+    set(() => ({ data: { name: "", code: "" }, errors: undefined }));
+  },
   validate: function () {
     // clearing errors
     set(() => ({
       errors: undefined,
     }));
     try {
-      const parsed = newAccountSchema.safeParse(get().data);
-
+      const formdata = get().data;
+      const parsed = newAccountSchema.safeParse(formdata);
       if (!parsed.success) {
         let validationErrors: Errors = {};
         parsed.error.issues.forEach((issue) => {
@@ -45,10 +48,9 @@ const newAccountStore = create<FormState>((set, get) => ({
         }));
         return false;
       }
-
       return true;
     } catch (e) {
-      console.log("Error validating", e);
+      console.log("[Error] Error validating", e);
       return false;
     }
   },

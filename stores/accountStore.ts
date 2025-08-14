@@ -23,7 +23,8 @@ const accountStore = create<AccountStore>((set, get) => ({
 
       const entries = await StorageService.get("accounts");
 
-      if (entries) {
+
+      if (Array.isArray(entries)) {
         set(() => ({
           isFetching: false,
           accounts: entries,

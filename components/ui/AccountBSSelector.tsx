@@ -1,7 +1,8 @@
-import { AccountModel } from '@/models';
-import Feather from '@expo/vector-icons/Feather';
+import { AccountModel } from "@/models";
+import { lightTheme } from "@/shared/theme";
+import Feather from "@expo/vector-icons/Feather";
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
-import React, { useCallback, useMemo } from "react";
+import React, { useCallback } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 function AccountBSSelector({
@@ -17,47 +18,44 @@ function AccountBSSelector({
   bottomSheetRef: React.Ref<BottomSheet>;
   handleSheetChanges?: () => void;
 }) {
-
-
   const renderItem = useCallback(
     (item: AccountModel) => (
-      <View key={item.code} style={{
-        backgroundColor: item.releasable === "Sim" ? "#f9f7fe":"#ede6fa",
-        paddingHorizontal: 8,
-        paddingVertical: 4,
-        marginVertical: 2,
-        borderRadius: 10
-      }}>
+      <View
+        key={item.code}
+        style={{
+          backgroundColor: item.releasable ? "#f9f7fe" : "#ffffff",
+          opacity: item.releasable ? 0.8 : 1,
+          paddingHorizontal: 8,
+          paddingVertical: 4,
+          marginVertical: 2,
+          borderRadius: 10,
+        }}
+      >
         <TouchableOpacity
-          disabled={item.releasable === "Sim"}
+          disabled={item.releasable}
           style={{
             height: 38,
             justifyContent: "center",
           }}
-          onPress={
-            item.releasable === "Sim" ? undefined : () => onSelect(item)
-          }
+          onPress={item.releasable ? undefined : () => onSelect(item)}
         >
           <Text
             style={{
               fontSize: 16,
-              fontWeight: item.releasable === "Sim" ? 400 : 600,
-              flexDirection:"row",
-              alignItems:"center",
-              opacity: item.releasable === "Sim" ? 0.3 : 1,
+              fontWeight: item.releasable ? 400 : 600,
+              flexDirection: "row",
+              alignItems: "center",
+              opacity: item.releasable ? 0.3 : 1,
             }}
           >
-           {
-           item.releasable === "Sim" && <Feather name="lock" size={20} color="black" />
-           } {item.code} - {item.name}
+            {item.releasable && <Feather name="lock" size={20} color="black" />}{" "}
+            {item.code} - {item.name}
           </Text>
         </TouchableOpacity>
       </View>
     ),
     [onSelect]
   );
-
-  const data = useMemo(()=>accounts.filter((accounts)=>accounts.releasable !== "Sim"),[accounts])
 
   return (
     <BottomSheet
@@ -66,6 +64,9 @@ function AccountBSSelector({
       index={initialState}
       snapPoints={["100%"]}
       enablePanDownToClose
+      backgroundStyle={{
+        backgroundColor: lightTheme.colors.card,
+      }}
     >
       <View
         style={{
@@ -80,11 +81,11 @@ function AccountBSSelector({
             fontWeight: 600,
           }}
         >
-          Selecione Receita
+          Selecione Conta Pai
         </Text>
       </View>
       <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
-        {data.map(renderItem)}
+        {accounts.map(renderItem)}
       </BottomSheetScrollView>
     </BottomSheet>
   );
@@ -93,7 +94,7 @@ function AccountBSSelector({
 const styles = StyleSheet.create({
   mainView: {
     paddingHorizontal: 8,
-    backgroundColor: "purple",
+    backgroundColor: lightTheme.colors.primary,
     height: "100%",
   },
   container: {

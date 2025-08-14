@@ -1,87 +1,55 @@
-import { useAccountStore } from "@/stores/accountStore";
-import { useNewAccountStore } from "@/stores/useNewAccountStore";
-import AntDesign from "@expo/vector-icons/AntDesign";
-import { Link, Stack } from "expo-router";
+import { SplashScreen, Stack } from "expo-router";
 import React from "react";
-import { Text, TouchableOpacity } from "react-native";
-
-import { Ionicons } from "@expo/vector-icons";
+import { useFonts } from "expo-font";
+import HomeRightSection from "@/components/nav/HomeRightSection";
+import CreateScreenRightSection from "@/components/nav/CreateScreenRightSection";
+import { lightTheme } from "@/shared/theme";
 
 export default function RootLayout() {
+  const [fontsLoaded] = useFonts({
+    AntDesign: require("@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/AntDesign.ttf"),
+  });
+
+  React.useEffect(() => {
+    if (fontsLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
+
   return (
     <Stack>
       <Stack.Screen
         name="index"
-        options={{
+        options={({ navigation }) => ({
           headerShadowVisible: false,
-          headerStyle: { backgroundColor: "purple" },
+          headerStyle: { backgroundColor: lightTheme.colors.primary },
           headerTitleStyle: {
             color: "#ffffff",
           },
-          title: "Plano de Contas",
-          headerRight: () => <HomeScreenRightOptions />,
-        }}
+          headerTitle: "Plano de Contas",
+          headerTitleAlign: "left",
+          headerRight: () => <HomeRightSection navigation={navigation} />,
+        })}
       />
       <Stack.Screen
         name="create"
         options={({ navigation }) => ({
-          title: "Inserir Conta",
+          headerTitle: "Inserir Conta",
           headerShadowVisible: false,
           headerTintColor: "#ffffff",
           headerTitleStyle: {
             color: "#ffffff",
           },
-          headerStyle: { backgroundColor: "purple" },
+          headerStyle: { backgroundColor: lightTheme.colors.primary },
           headerRight: () => (
-            <CreateScreenRightOptions navigation={navigation} />
+            <CreateScreenRightSection navigation={navigation} />
           ),
         })}
       />
     </Stack>
   );
 }
-
-export const HomeScreenRightOptions = () => {
-  return (
-    <Link href="/create">
-      <Ionicons name="add" size={24} color="#fff" />
-    </Link>
-  );
-};
-
-export const CreateScreenRightOptions = ({
-  navigation,
-}: {
-  navigation: any;
-}) => {
-  const { validate, data, setFields } = useNewAccountStore();
-  const { addAccount } = useAccountStore();
-  return (
-    <TouchableOpacity
-      onPress={async () => {
-        try {
-          if (validate()) {
-            addAccount({
-              name: data?.name ?? "",
-              type: "expenses",
-              code: data?.code ?? "",
-              releasable: data?.releasable ?? false,
-            });
-            setFields();
-            navigation.goBack();
-          }
-        } catch (e) {
-          console.log("error", e);
-        }
-      }}
-    >
-      <AntDesign
-        name="save"
-        style={{
-          fontSize: 24,
-        }}
-        color="#fff"
-      />
-    </TouchableOpacity>
-  );
-};

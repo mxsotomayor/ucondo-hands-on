@@ -19,10 +19,10 @@ export interface AppTheme {
 export const lightTheme: AppTheme = {
   dark: false,
   colors: {
-    background: '#ffffff',
-    text: '#000000',
-    primary: '#007aff',
-    secondary: '#5ac8fa',
+    background: '#f0edf5',
+    text: '#676767',
+    primary: '#622490',
+    secondary: '#ff6680',
     card: '#f2f2f2',
     border: '#dcdcdc',
   },

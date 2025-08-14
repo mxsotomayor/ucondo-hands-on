@@ -1,5 +1,6 @@
 import CreateAccountForm from "@/components/features/CreateAccountForm";
 import ScreenBody from "@/components/shared/ScreenBody";
+import { lightTheme } from "@/shared/theme";
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
@@ -22,7 +23,7 @@ export default function CreateScreen() {
 const styles = StyleSheet.create({
   mainView: {
     paddingHorizontal: 8,
-    backgroundColor: "purple",
+    backgroundColor: lightTheme.colors.primary,
     height: "100%",
   },
   container: {

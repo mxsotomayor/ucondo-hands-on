@@ -1,6 +1,13 @@
-import React from "react";
+import { AccountModel } from "@/models";
+import { useAccountStore } from "@/stores/accountStore";
+import { useDebouncer } from "@/utils";
+import React, { useEffect, useState } from "react";
 import { Text, TextInput, View } from "react-native";
 
+interface CodeProps {
+  rootCode: string;
+  proposalCode: string;
+}
 interface CodeInputProps {
   code?: string;
   disabled?: boolean;
@@ -8,13 +15,65 @@ interface CodeInputProps {
 }
 
 function CodeInput({ code, disabled = true, onChange }: CodeInputProps) {
+
+  const debouncer = useDebouncer();
+
+  const { accounts } = useAccountStore();
+
+  const [fullCode, setFullCode] = useState("");
+
+  const { rootCode, proposalCode } = React.useMemo(() => {
+    if (!code)
+      return {
+        rootCode: "",
+        proposalCode: "",
+      };
+
+    const lastChild = accounts.findLast((item) =>
+      item.code.startsWith(!isRoot ? `${code}.` : fullCode)
+    );
+
+    console.log("last child found", lastChild);
+
+    let response: CodeProps = {
+      proposalCode: "",
+      rootCode: "",
+    };
+
+    
+
+    if (lastChild) {
+      const parts = lastChild.code.split(".").map((i) => parseInt(i));
+
+      console.log("parts", parts);
+
+      response = {
+        rootCode: [...parts.slice(0, parts.length - 1)].join("."),
+        proposalCode: `${parts.pop()! + 1}`,
+      };
+    } else {
+      response = {
+        rootCode: `${code}`,
+        proposalCode: fullCode.split(".").pop() ?? "",
+      };
+    }
+
+    console.log("DATAAAA", response);
+
+    // debouncer(() => {
+    //   onChange(`${response.rootCode}.${response.proposalCode}`);
+    // });
+
+    return response;
+  }, [code]);
+
   const isRoot = code ? code?.split?.(".").length === 1 : false;
 
-  const codeParts = code ? code.split?.(".") : [];
+  console.log(isRoot ? "is root" : "no root");
 
-  const rootCode = code
-    ? codeParts.slice(0, codeParts.length - 1).join(".") + "."
-    : "";
+  useEffect(() => {
+    setFullCode(code ?? "");
+  }, [code]);
 
   return (
     <View
@@ -34,20 +93,25 @@ function CodeInput({ code, disabled = true, onChange }: CodeInputProps) {
       >
         {rootCode}
       </Text>
+      <Text>.</Text>
       <TextInput
         style={{
           flex: 1,
           padding: 0,
+          color: "#161616",
         }}
-        value={codeParts.length > 1 ? code?.split(".").pop() : ""}
+        value={proposalCode}
         placeholder={code ? "999" : ""}
         maxLength={3}
-        onChangeText={(value) => onChange(`${rootCode}${value}`)}
+        onChangeText={(value) => {
+          console.log("new value", value);
+          setFullCode(`${fullCode}.${value ?? "1"}`);
+        }}
         keyboardType="numeric"
-        readOnly={isRoot || disabled}
+        // readOnly={isRoot || disabled}
       />
     </View>
   );
 }
 
-export default CodeInput;
+export default React.memo(CodeInput);
