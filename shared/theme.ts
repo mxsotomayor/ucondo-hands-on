@@ -7,6 +7,7 @@ export interface ThemeColors {
   text: string;
   primary: string;
   secondary: string;
+  success: string;
   card: string;
   border: string;
 }
@@ -19,10 +20,11 @@ export interface AppTheme {
 export const lightTheme: AppTheme = {
   dark: false,
   colors: {
-    background: '#ffffff',
-    text: '#000000',
-    primary: '#007aff',
-    secondary: '#5ac8fa',
+    background: '#f0edf5',
+    text: '#676767',
+    primary: '#622490',
+    success: '#1ba803',
+    secondary: '#ff6680',
     card: '#f2f2f2',
     border: '#dcdcdc',
   },
@@ -34,6 +36,7 @@ export const darkTheme: AppTheme = {
     background: '#000000',
     text: '#ffffff',
     primary: '#0a84ff',
+    success: '#0a84ff',
     secondary: '#64d2ff',
     card: '#1c1c1e',
     border: '#3a3a3c',

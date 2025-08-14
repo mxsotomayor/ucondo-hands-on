@@ -1,50 +1,54 @@
-import ScreenHeader from "@/components/ScreenHeader";
-import accountStore from "@/data/stores/accountStore";
-import AntDesign from "@expo/vector-icons/AntDesign";
-import { Link, Stack } from "expo-router";
+import { SplashScreen, Stack } from "expo-router";
 import React from "react";
-import { TouchableOpacity, View } from "react-native";
+import { useFonts } from "expo-font";
+import HomeRightSection from "@/components/nav/HomeRightSection";
+import CreateScreenRightSection from "@/components/nav/CreateScreenRightSection";
+import { lightTheme } from "@/shared/theme";
 
 export default function RootLayout() {
-  const { addAccount } = accountStore();
+  const [fontsLoaded] = useFonts({
+    AntDesign: require("@expo/vector-icons/build/vendor/react-native-vector-icons/Fonts/AntDesign.ttf"),
+  });
+
+  React.useEffect(() => {
+    if (fontsLoaded) {
+      SplashScreen.hideAsync();
+    }
+  }, [fontsLoaded]);
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
     <Stack>
       <Stack.Screen
         name="index"
-        options={{
+        options={({ navigation }) => ({
           headerShadowVisible: false,
-          headerStyle: { backgroundColor: "purple" },
-          headerTitle: (props) => (
-            <ScreenHeader
-              title="Plano de Contas"
-              actions={
-                <View>
-                  <Link href="/create">
-                    <AntDesign name="plus" size={24} color="#fff" />
-                  </Link>
-                </View>
-              }
-            />
-          ),
-        }}
+          headerStyle: { backgroundColor: lightTheme.colors.primary },
+          headerTitleStyle: {
+            color: "#ffffff",
+          },
+          headerTitle: "Plano de Contas",
+          headerTitleAlign: "left",
+          headerRight: () => <HomeRightSection navigation={navigation} />,
+        })}
       />
       <Stack.Screen
         name="create"
-        options={{
+        options={({ navigation }) => ({
+          headerTitle: "Inserir Conta",
           headerShadowVisible: false,
-          headerStyle: { backgroundColor: "purple" },
-          headerTitle: (props) => (
-            <ScreenHeader
-              title="Inserir Conta"
-              actions={
-                <TouchableOpacity>
-                  <AntDesign name="check" size={24} color="#fff" />
-                </TouchableOpacity>
-              }
-            />
+          headerTintColor: "#ffffff",
+          headerTitleStyle: {
+            color: "#ffffff",
+          },
+          headerStyle: { backgroundColor: lightTheme.colors.primary },
+          headerRight: () => (
+            <CreateScreenRightSection navigation={navigation} />
           ),
-        }}
+        })}
       />
     </Stack>
   );

@@ -1,392 +1,392 @@
 export const data = [
   {
     "code": "1",
-    "account_name": "Receitas",
-    "type": "Receita",
-    "allow_register": "Não"
+    "name": "Receitas",
+    "type": "revenues",
+    "releasable": false
   },
   {
     "code": "1.1",
-    "account_name": "Taxa condominial",
-    "type": "Receita",
-    "allow_register": "Sim"
+    "name": "Taxa condominial",
+    "type": "revenues",
+    "releasable": true
   },
   {
     "code": "1.2",
-    "account_name": "Reserva de dependência",
-    "type": "Receita",
-    "allow_register": "Sim"
+    "name": "Reserva de dependência",
+    "type": "revenues",
+    "releasable": true
   },
   {
     "code": "1.3",
-    "account_name": "Multas",
-    "type": "Receita",
-    "allow_register": "Sim"
+    "name": "Multas",
+    "type": "revenues",
+    "releasable": true
   },
   {
     "code": "1.4",
-    "account_name": "Juros",
-    "type": "Receita",
-    "allow_register": "Sim"
+    "name": "Juros",
+    "type": "revenues",
+    "releasable": true
   },
   {
     "code": "1.5",
-    "account_name": "Multa condominial",
-    "type": "Receita",
-    "allow_register": "Sim"
+    "name": "Multa condominial",
+    "type": "revenues",
+    "releasable": true
   },
   {
     "code": "1.6",
-    "account_name": "Água",
-    "type": "Receita",
-    "allow_register": "Sim"
+    "name": "Água",
+    "type": "revenues",
+    "releasable": true
   },
   {
     "code": "1.7",
-    "account_name": "Gás",
-    "type": "Receita",
-    "allow_register": "Sim"
+    "name": "Gás",
+    "type": "revenues",
+    "releasable": true
   },
   {
     "code": "1.8",
-    "account_name": "Luz e energia",
-    "type": "Receita",
-    "allow_register": "Sim"
+    "name": "Luz e energia",
+    "type": "revenues",
+    "releasable": true
   },
   {
     "code": "1.9",
-    "account_name": "Fundo de reserva",
-    "type": "Receita",
-    "allow_register": "Sim"
+    "name": "Fundo de reserva",
+    "type": "revenues",
+    "releasable": true
   },
   {
     "code": "1.10",
-    "account_name": "Fundo de obras",
-    "type": "Receita",
-    "allow_register": "Sim"
+    "name": "Fundo de obras",
+    "type": "revenues",
+    "releasable": true
   },
   {
     "code": "1.11",
-    "account_name": "Correção monetária",
-    "type": "Receita",
-    "allow_register": "Sim"
+    "name": "Correção monetária",
+    "type": "revenues",
+    "releasable": true
   },
   {
     "code": "1.12",
-    "account_name": "Transferência entre contas",
-    "type": "Receita",
-    "allow_register": "Sim"
+    "name": "Transferência entre contas",
+    "type": "revenues",
+    "releasable": true
   },
   {
     "code": "1.13",
-    "account_name": "Pagamento duplicado",
-    "type": "Receita",
-    "allow_register": "Sim"
+    "name": "Pagamento duplicado",
+    "type": "revenues",
+    "releasable": true
   },
   {
     "code": "1.14",
-    "account_name": "Cobrança",
-    "type": "Receita",
-    "allow_register": "Sim"
+    "name": "Cobrança",
+    "type": "revenues",
+    "releasable": true
   },
   {
     "code": "1.15",
-    "account_name": "Crédito",
-    "type": "Receita",
-    "allow_register": "Sim"
+    "name": "Crédito",
+    "type": "revenues",
+    "releasable": true
   },
   {
     "code": "1.16",
-    "account_name": "Água mineral",
-    "type": "Receita",
-    "allow_register": "Sim"
+    "name": "Água mineral",
+    "type": "revenues",
+    "releasable": true
   },
   {
     "code": "1.17",
-    "account_name": "Estorno taxa de resgate",
-    "type": "Receita",
-    "allow_register": "Sim"
+    "name": "Estorno taxa de resgate",
+    "type": "revenues",
+    "releasable": true
   },
   {
     "code": "1.18",
-    "account_name": "Acordo",
-    "type": "Receita",
-    "allow_register": "Sim"
+    "name": "Acordo",
+    "type": "revenues",
+    "releasable": true
   },
   {
     "code": "1.19",
-    "account_name": "Honorários",
-    "type": "Receita",
-    "allow_register": "Sim"
+    "name": "Honorários",
+    "type": "revenues",
+    "releasable": true
   },
   {
     "code": "2",
-    "account_name": "Despesas",
-    "type": "Despesa",
-    "allow_register": "Não"
+    "name": "Despesas",
+    "type": "expenses",
+    "releasable": false
   },
   {
     "code": "2.1",
-    "account_name": "Com pessoal",
-    "type": "Despesa",
-    "allow_register": "Não"
+    "name": "Com pessoal",
+    "type": "expenses",
+    "releasable": false
   },
   {
     "code": "2.1.1",
-    "account_name": "Salário",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Salário",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.1.2",
-    "account_name": "Adiantamento salarial",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Adiantamento salarial",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.1.3",
-    "account_name": "Hora extra",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Hora extra",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.1.4",
-    "account_name": "Férias",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Férias",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.1.5",
-    "account_name": "13º salário",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "13º salário",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.1.6",
-    "account_name": "Adiantamento 13º salário",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Adiantamento 13º salário",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.1.7",
-    "account_name": "Adicional de função",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Adicional de função",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.1.8",
-    "account_name": "Aviso prévio",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Aviso prévio",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.1.9",
-    "account_name": "INSS",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "INSS",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.1.10",
-    "account_name": "FGTS",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "FGTS",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.1.11",
-    "account_name": "PIS",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "PIS",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.1.12",
-    "account_name": "Vale refeição",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Vale refeição",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.1.13",
-    "account_name": "Vale transporte",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Vale transporte",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.1.14",
-    "account_name": "Cesta básica",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Cesta básica",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.1.15",
-    "account_name": "Acordo trabalhista",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Acordo trabalhista",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.2",
-    "account_name": "Mensais",
-    "type": "Despesa",
-    "allow_register": "Não"
+    "name": "Mensais",
+    "type": "expenses",
+    "releasable": false
   },
   {
     "code": "2.2.1",
-    "account_name": "Energia elétrica",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Energia elétrica",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.2.2",
-    "account_name": "Água e esgoto",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Água e esgoto",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.2.3",
-    "account_name": "Taxa de administração",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Taxa de administração",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.2.4",
-    "account_name": "Gás",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Gás",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.2.5",
-    "account_name": "Seguro obrigatório",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Seguro obrigatório",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.2.6",
-    "account_name": "Telefone",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Telefone",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.2.7",
-    "account_name": "Softwares e aplicativos",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Softwares e aplicativos",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.3",
-    "account_name": "Manutenção",
-    "type": "Despesa",
-    "allow_register": "Não"
+    "name": "Manutenção",
+    "type": "expenses",
+    "releasable": false
   },
   {
     "code": "2.3.1",
-    "account_name": "Elevador",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Elevador",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.3.2",
-    "account_name": "Limpeza e conservação",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Limpeza e conservação",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.3.3",
-    "account_name": "Jardinagem",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Jardinagem",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.4",
-    "account_name": "Diversas",
-    "type": "Despesa",
-    "allow_register": "Não"
+    "name": "Diversas",
+    "type": "expenses",
+    "releasable": false
   },
   {
     "code": "2.4.1",
-    "account_name": "Honorários de advogado",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Honorários de advogado",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.4.2",
-    "account_name": "Xerox",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Xerox",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.4.3",
-    "account_name": "Correios",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Correios",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.4.4",
-    "account_name": "Despesas judiciais",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Despesas judiciais",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.4.5",
-    "account_name": "Multas",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Multas",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.4.6",
-    "account_name": "Juros",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Juros",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "2.4.7",
-    "account_name": "Transferência entre contas",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Transferência entre contas",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "3",
-    "account_name": "Despesas bancárias",
-    "type": "Despesa",
-    "allow_register": "Não"
+    "name": "Despesas bancárias",
+    "type": "expenses",
+    "releasable": false
   },
   {
     "code": "3.1",
-    "account_name": "Registro de boletos",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Registro de boletos",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "3.2",
-    "account_name": "Processamento de boletos",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Processamento de boletos",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "3.3",
-    "account_name": "Registro e processamento de boletos",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Registro e processamento de boletos",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "3.4",
-    "account_name": "Resgates",
-    "type": "Despesa",
-    "allow_register": "Sim"
+    "name": "Resgates",
+    "type": "expenses",
+    "releasable": true
   },
   {
     "code": "4",
-    "account_name": "Outras receitas",
-    "type": "Receita",
-    "allow_register": "Não"
+    "name": "Outras receitas",
+    "type": "revenues",
+    "releasable": false
   },
   {
     "code": "4.1",
-    "account_name": "Rendimento de poupança",
-    "type": "Receita",
-    "allow_register": "Sim"
+    "name": "Rendimento de poupança",
+    "type": "revenues",
+    "releasable": true
   },
   {
     "code": "4.2",
-    "account_name": "Rendimento de investimentos",
-    "type": "Receita",
-    "allow_register": "Sim"
+    "name": "Rendimento de investimentos",
+    "type": "revenues",
+    "releasable": true
   }
 ]

@@ -1,3 +1,4 @@
+import { lightTheme } from "@/shared/theme";
 import React from "react";
 import { StyleSheet, View } from "react-native";
 
@@ -11,14 +12,14 @@ function ScreenBody({ children }: ScreenBodyProps) {
 
 export default ScreenBody;
 
-
 const styles = StyleSheet.create({
   scrollViewStyle: {
-    backgroundColor: "#f0edf5",
+    height: 100,
+    backgroundColor: lightTheme.colors.background,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
     flex: 1,
     rowGap: 6,
-    overflow:"hidden"
+    overflow: "hidden",
   },
 });

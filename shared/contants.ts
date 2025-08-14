@@ -1,6 +1,6 @@
 export const ACCOUNT_COLORS = [
-  "#FF5733",
-  "#33C1FF",
+  "#1ba803",
+  "#e28856",
   "#9B59B6",
   "#27AE60",
   "#F1C40F",
