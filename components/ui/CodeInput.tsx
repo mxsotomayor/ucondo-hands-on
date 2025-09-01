@@ -1,6 +1,4 @@
-import { AccountModel } from "@/models";
 import { useAccountStore } from "@/stores/accountStore";
-import { useDebouncer } from "@/utils";
 import React, { useEffect, useState } from "react";
 import { Text, TextInput, View } from "react-native";
 
@@ -14,10 +12,7 @@ interface CodeInputProps {
   onChange: (code: string) => void;
 }
 
-function CodeInput({ code, disabled = true, onChange }: CodeInputProps) {
-
-  const debouncer = useDebouncer();
-
+function CodeInput({ code }: CodeInputProps) {
   const { accounts } = useAccountStore();
 
   const [fullCode, setFullCode] = useState("");
@@ -40,12 +35,8 @@ function CodeInput({ code, disabled = true, onChange }: CodeInputProps) {
       rootCode: "",
     };
 
-    
-
     if (lastChild) {
       const parts = lastChild.code.split(".").map((i) => parseInt(i));
-
-      console.log("parts", parts);
 
       response = {
         rootCode: [...parts.slice(0, parts.length - 1)].join("."),
@@ -57,13 +48,6 @@ function CodeInput({ code, disabled = true, onChange }: CodeInputProps) {
         proposalCode: fullCode.split(".").pop() ?? "",
       };
     }
-
-    console.log("DATAAAA", response);
-
-    // debouncer(() => {
-    //   onChange(`${response.rootCode}.${response.proposalCode}`);
-    // });
-
     return response;
   }, [code]);
 
@@ -104,11 +88,9 @@ function CodeInput({ code, disabled = true, onChange }: CodeInputProps) {
         placeholder={code ? "999" : ""}
         maxLength={3}
         onChangeText={(value) => {
-          console.log("new value", value);
           setFullCode(`${fullCode}.${value ?? "1"}`);
         }}
         keyboardType="numeric"
-        // readOnly={isRoot || disabled}
       />
     </View>
   );

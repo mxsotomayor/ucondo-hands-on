@@ -11,7 +11,7 @@ import Toast from "react-native-toast-message";
 
 export default function Index() {
   const { setFilterText } = useHomeAccountFilterStore();
-  const debouncer = useDebouncer();
+  const debounce = useDebouncer();
 
   return (
     <SafeAreaView style={{}} edges={["left", "right", "bottom"]}>
@@ -19,12 +19,12 @@ export default function Index() {
         <View
           style={{
             paddingVertical: 16,
-            paddingHorizontal: 16
+            paddingHorizontal: 16,
           }}
         >
           <SearchInput
             onChange={(value) => {
-              debouncer(() => {
+              debounce(() => {
                 console.log("filter for", value);
                 setFilterText(value);
               });

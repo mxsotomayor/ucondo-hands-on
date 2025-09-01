@@ -21,7 +21,7 @@ export const lightTheme: AppTheme = {
   dark: false,
   colors: {
     background: '#f0edf5',
-    text: '#676767',
+    text: '#161016',
     primary: '#622490',
     success: '#1ba803',
     secondary: '#ff6680',

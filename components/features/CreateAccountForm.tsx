@@ -1,9 +1,10 @@
 import { trans } from "@/i18n/translate";
 import { AccountModel } from "@/models";
+import { lightTheme } from "@/shared/theme";
 import { useAccountStore } from "@/stores/accountStore";
 import { useNewAccountStore } from "@/stores/useNewAccountStore";
 import { useDebouncer } from "@/utils";
-import AntDesign from "@expo/vector-icons/AntDesign";
+import Ionicons from '@expo/vector-icons/Ionicons';
 import BottomSheet from "@gorhom/bottom-sheet";
 import React, { useEffect } from "react";
 import {
@@ -16,7 +17,6 @@ import {
 } from "react-native";
 import ErrorValidationMessage from "../shared/ErrorValidationMessage";
 import AccountBSSelector from "../ui/AccountBSSelector";
-import { lightTheme } from "@/shared/theme";
 
 function CreateAccountForm() {
   const { accounts } = useAccountStore();
@@ -63,8 +63,11 @@ function CreateAccountForm() {
   };
 
   const handleChangeCode = (value: string) => {
+
+    const suffixValue = value.replace(/[^0-9]/g, "");
+
     setFields({
-      code: `${prefix}.${value}`,
+      code: `${prefix}.${suffixValue}`,
     });
 
     debouncer(() => {
@@ -100,6 +103,7 @@ function CreateAccountForm() {
         flex: 1,
       }}
     >
+      <Text>{JSON.stringify(data)}</Text>
       <View
         style={{
           height: 44,
@@ -140,7 +144,7 @@ function CreateAccountForm() {
               ? `${data.rootAccount?.code} - ${data.rootAccount.name}`
               : "Selecione Receita"}
           </Text>
-          <AntDesign name="down" size={20} color={"#666"} />
+          <Ionicons name="chevron-expand" size={24} color="black" />
         </TouchableOpacity>
         <ErrorValidationMessage message={errors?.rootAccount} />
       </View>
@@ -161,6 +165,7 @@ function CreateAccountForm() {
           <Text
             style={{
               fontWeight: 600,
+              color: "#5d5d5d",
             }}
           >
             {prefix !== "" ? `${prefix}.` : ""}
@@ -169,9 +174,9 @@ function CreateAccountForm() {
             value={suffix}
             maxLength={3}
             readOnly={!data?.rootAccount}
-            keyboardType="number-pad"
+            keyboardType="numeric"
             style={{
-              color: lightTheme.colors.text,
+              color: !errors?.code  ? lightTheme.colors.text: lightTheme.colors.secondary,
               flex: 1,
               paddingHorizontal: 0,
             }}

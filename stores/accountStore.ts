@@ -1,7 +1,6 @@
 import { data } from "@/data";
 import { AccountModel, SyncOpsModel } from "@/models";
 import { StorageService } from "@/services/StorageService";
-import { CheckSumUtil } from "@/utils";
 import { sortAccounts } from "@/utils/sortNestedCode";
 import { create } from "zustand";
 import { useShallow } from "zustand/react/shallow";
@@ -18,12 +17,14 @@ interface AccountStore {
   synchronize: () => Promise<void>;
 }
 
+// take from ENV just for simplify the testing I just will  fetch from here
 const SYNC_OPS_KEY = "sync-ops";
 const ACCOUNTS_KEY = "accounts";
 
 const accountStore = create<AccountStore>((set, get) => ({
   isFetching: true,
   accounts: [],
+  // @TODO:
   async synchronize() {
     try {
       const syncOps = await StorageService.get<SyncOpsModel>(SYNC_OPS_KEY);
@@ -112,7 +113,6 @@ const accountStore = create<AccountStore>((set, get) => ({
       isFetching: false,
       accounts: accounts,
       isSynchronizable: true,
-      checkSums: CheckSumUtil.create(accounts),
     }));
   },
   deleteAccount: async (code: string) => {

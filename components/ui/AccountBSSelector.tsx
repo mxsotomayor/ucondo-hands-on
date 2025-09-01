@@ -1,5 +1,6 @@
 import { AccountModel } from "@/models";
 import { lightTheme } from "@/shared/theme";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
 import Feather from "@expo/vector-icons/Feather";
 import BottomSheet, { BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import React, { useCallback } from "react";
@@ -18,6 +19,8 @@ function AccountBSSelector({
   bottomSheetRef: React.Ref<BottomSheet>;
   handleSheetChanges?: () => void;
 }) {
+  const [showAll, setShowAll] = React.useState(false);
+
   const renderItem = useCallback(
     (item: AccountModel) => (
       <View
@@ -72,7 +75,9 @@ function AccountBSSelector({
         style={{
           paddingHorizontal: 16,
           height: 36,
-          justifyContent: "center",
+          justifyContent: "space-between",
+          flexDirection: "row",
+          alignItems: "center",
         }}
       >
         <Text
@@ -83,9 +88,24 @@ function AccountBSSelector({
         >
           Selecione Conta Pai
         </Text>
+        <View>
+          <TouchableOpacity
+            onPress={() => setShowAll(!showAll)}
+            style={{ flexDirection: "row", alignItems: "center", gap: 8 }}
+          >
+            <Text>Todas</Text>
+            <FontAwesome
+              name={!showAll ? "square-o" : "check-square"}
+              size={18}
+              color="black"
+            />
+          </TouchableOpacity>
+        </View>
       </View>
       <BottomSheetScrollView contentContainerStyle={styles.contentContainer}>
-        {accounts.map(renderItem)}
+        {accounts
+          .filter((accounts) => (showAll ? true : !accounts.releasable))
+          .map(renderItem)}
       </BottomSheetScrollView>
     </BottomSheet>
   );
